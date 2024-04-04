@@ -21,8 +21,8 @@ MainPage:Toggle("Reach Enabled",false, function(t)
     ReachEnabled = t
 end)
 
-MainPage:Slider("Radius",0,100,0, function(t)
-    ReachRadius = t
+MainPage:Textbox("Reach Radius",true, function(t)
+    ReachRadius = tonumber(t) or 0
 end)
 
 -- [[ VISUALIZER SECTION ]] --
