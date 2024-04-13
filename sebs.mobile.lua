@@ -9,6 +9,8 @@ local ReachRadius = 0
 local VisualizerEnabled = false
 local VisualizerColor = Color3.fromRGB(0,0,0)
 
+local WalkSpeedEnabled = false
+
 
 
 -- [[ MAIN PAGE ]] --
@@ -36,6 +38,12 @@ MainPage:Colorpicker("Visualizer Color",Color3.fromRGB(0, 0, 0), function(t)
     VisualizerColor = Color3.fromRGB(t.R * 255, t.G * 255, t.B * 255)
 end)
 
+-- [[ CHARACTER SECTION ]] --
+MainPage:Label("-------- CHARACTER SETTINGS")
+
+MainPage:Toggle("Speed Enabled", false, function(t)
+    WalkSpeedEnabled = t
+end)
 
 -- [[ SCRIPT LOGIC ]] --
 
@@ -114,6 +122,10 @@ RunService.RenderStepped:Connect(function(deltaTime)
             NewCircle.Color = VisualizerColor
             NewCircle.Radius = ReachRadius
             NewCircle.Position = HANDLE.Position or nil
+        end
+
+        if WalkSpeedEnabled then
+            LocalCharacter.HumanoidRootPart.CFrame = LocalCharacter.HumanoidRootPart.CFrame + LocalCharacter.Humanoid.MoveDirection * 0.03
         end
 
         task.spawn(function()
